@@ -1,0 +1,24 @@
+sudo: required
+
+language: ruby
+
+bundler_args: --without='vagrant linode'
+
+services:
+  - docker
+
+env:
+  matrix:
+  - INSTANCE=default
+  - INSTANCE=oss
+  - INSTANCE=pro
+
+script:
+  - KITCHEN_LOCAL_YAML=.kitchen-docker.yml kitchen test ${INSTANCE}
+
+after_script:
+  - docker images
+  - docker ps -a
+  - cat .kitchen/logs/kitchen.log
+
+after_failure: cat docker_daemon.log

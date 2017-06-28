@@ -1,0 +1,38 @@
+# vim: ft=yaml
+---
+driver:
+  name: docker
+
+provisioner:
+  name: salt_solo
+  formula: rundeck
+  state_top:
+    base:
+      "*":
+        - rundeck
+
+platforms:
+  - name: debian
+
+suites:
+  - name: default
+  
+  - name: oss
+    provisioner:
+      pillars-from-files:
+        rundeck.sls: pillar-oss.sls
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - rundeck
+
+  - name: pro
+    provisioner:
+      pillars-from-files:
+        rundeck.sls: pillar-pro.sls
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - rundeck

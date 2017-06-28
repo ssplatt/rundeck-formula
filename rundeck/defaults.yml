@@ -1,0 +1,30 @@
+# vim: ft=yaml
+# Defaults for rundeck
+
+rundeck:
+  enabled: false
+  mockup: false
+  pro: 
+    enabled: false
+    pkg: rundeckpro-team_2.1.0-GA_all.deb
+    url: https://rundeckpro.bintray.com/deb
+    hash: sha256=8932eb26b97fff5ef35f0588902ed63ea5fd0efd7231f683adea848e8bd7a0ee
+  pkg: rundeck
+  dep_pkgs:
+    - openjdk-7-jre-headless
+    - uuid-runtime
+  plugin:
+    saltstep:
+      enabled: false
+      pkg: rundeck-salt-plugin-0.3.jar
+      url: https://github.com/rundeck-plugins/salt-step/releases/download/0.3
+      hash: sha256=d8760d982ada7c554f52c3696102fa482caf562d6e4ef16bf33a395a667d8b16
+    saltgenresource:
+      enabled: false
+      pkg: SaltGenResource.py
+      url: https://raw.githubusercontent.com/amendlik/salt-gen-resource/master
+      hash: sha256=ca9b70749ca1a8a962707da64e73dc9a53530931061a3c0f63f6eb5127536728
+  service:
+    name: rundeckd
+    enable: false
+    state: dead

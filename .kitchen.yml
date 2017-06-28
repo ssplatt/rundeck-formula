@@ -1,0 +1,46 @@
+# vim: ft=yaml
+---
+driver:
+  name: vagrant
+  customize: 
+    memory: 1024
+
+provisioner:
+  name: salt_solo
+  formula: rundeck
+  state_top:
+    base:
+      "*":
+        - rundeck
+
+platforms:
+  - name: bento/debian-8.7
+
+suites:
+  - name: default
+
+  - name: oss
+    driver:
+      network:
+        - ["forwarded_port", {guest: 4440, host: 4440}]
+    provisioner:
+      pillars-from-files:
+        rundeck.sls: pillar-oss.sls
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - rundeck
+
+  - name: pro
+    driver:
+      network:
+        - ["forwarded_port", {guest: 4440, host: 4441}]
+    provisioner:
+      pillars-from-files:
+        rundeck.sls: pillar-pro.sls
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - rundeck

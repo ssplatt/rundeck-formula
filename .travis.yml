@@ -1,11 +1,16 @@
 sudo: required
-
+dist: trusty
 language: ruby
 
 bundler_args: --without='vagrant linode'
 
 services:
   - docker
+
+cache:
+  bundler: true
+  directories:
+    - /var/lib/docker
 
 env:
   matrix:
@@ -14,11 +19,11 @@ env:
   - INSTANCE=pro
 
 script:
-  - KITCHEN_LOCAL_YAML=.kitchen-docker.yml kitchen test ${INSTANCE}
+  - bundle exec docker version
+  - bundle exec kitchen --version
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen test ${INSTANCE} -d always
 
 after_script:
   - docker images
   - docker ps -a
   - cat .kitchen/logs/kitchen.log
-
-after_failure: cat docker_daemon.log

@@ -12,7 +12,7 @@ provisioner:
         - rundeck
 
 platforms:
-  - name: debian
+  - name: debian-8
 
 suites:
   - name: default

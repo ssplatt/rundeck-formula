@@ -7,11 +7,6 @@ bundler_args: --without='vagrant linode'
 services:
   - docker
 
-cache:
-  bundler: true
-  directories:
-    - /var/lib/docker
-
 env:
   matrix:
   - INSTANCE=default
